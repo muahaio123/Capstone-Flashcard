@@ -7,11 +7,11 @@ LANGUAGE_FONT = ("Arial", 40, "italic")
 WORD_FONT = ("Arial", 60, "bold")
 
 try:
-    data_csv = pandas.read_csv("data/words_to_learn.csv")  # resume the old not learnt words
+    data_csv = pandas.read_csv("words_to_learn.csv")  # resume the old not learnt words
 except FileNotFoundError:  # if the user is using for the first time, create new file
-    data_csv = pandas.read_csv("data/french_words.csv")  # take from the original list
+    data_csv = pandas.read_csv("french_words.csv")  # take from the original list
 except pandas.errors.EmptyDataError:  # if the user already learnt all the words, refresh the list
-    data_csv = pandas.read_csv("data/french_words.csv")  # take from the original list
+    data_csv = pandas.read_csv("french_words.csv")  # take from the original list
 
 to_learn = data_csv.to_dict(orient="records")
 current_word = None
@@ -47,7 +47,7 @@ def right_click():
 
     to_learn.remove(current_word)
     data = pandas.DataFrame(to_learn)
-    data.to_csv("data/words_to_learn.csv", index=False)
+    data.to_csv("words_to_learn.csv", index=False)
 
 
 # --------------------------- WRONG BUTTON ----------------------- #
@@ -63,8 +63,8 @@ window.title("Flashcard Capstone - FRENCH")
 window.config(pady=50, padx=50, bg=BACKGROUND_COLOR)
 
 # image for the front card
-card_front_img = tkinter.PhotoImage(file="images/card_front.png")
-card_back_img = tkinter.PhotoImage(file="images/card_back.png")
+card_front_img = tkinter.PhotoImage(file="card_front.png")
+card_back_img = tkinter.PhotoImage(file="card_back.png")
 
 # creating card canvas
 card_canvas = tkinter.Canvas(width=800, height=526, bg=BACKGROUND_COLOR, highlightthickness=0)
@@ -76,12 +76,12 @@ card_title = card_canvas.create_text(400, 150, font=LANGUAGE_FONT)
 card_word = card_canvas.create_text(400, 263, font=WORD_FONT)
 
 # right button should be on the right side
-right_button_img = tkinter.PhotoImage(file="images/right.png")
+right_button_img = tkinter.PhotoImage(file="right.png")
 right_button = tkinter.Button(image=right_button_img, highlightthickness=0, command=right_click)
 right_button.grid(row=1, column=1)
 
 # wrong button should be on the left side
-wrong_button_img = tkinter.PhotoImage(file="images/wrong.png")
+wrong_button_img = tkinter.PhotoImage(file="wrong.png")
 wrong_button = tkinter.Button(image=wrong_button_img, highlightthickness=0, command=wrong_click)
 wrong_button.grid(row=1, column=0)
 
